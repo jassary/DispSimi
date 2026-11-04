@@ -1,21 +1,39 @@
 """Configuración general: colores, tiempos de simulación y escenarios."""
 from dataclasses import dataclass
 
+FUENTE = 'Segoe UI'   # si no existe (Linux/Mac), Tkinter usa una fuente parecida
+
 
 @dataclass(frozen=True)
 class Tema:
-    fondo: str = '#FFFFFF'
-    panel: str = '#D4D4D4'
-    grafica: str = '#F7F7F7'
-    texto: str = '#2B2B2B'
-    texto_secundario: str = '#5A5A5A'
-    rejilla: str = '#B3B3B3'
-    cpu: str = '#D9534F'
-    disipador: str = '#F0AD4E'
-    ambiente: str = '#0275D8'
-    limite: str = '#8B0000'
-    ok: str = '#2E8B57'
-    aviso: str = '#C77C02'
+    """Paleta extraída de la imagen de referencia (dashboard oscuro con acentos amarillo y verde)."""
+    # superficies
+    fondo: str = '#161815'          # fondo general de la ventana
+    barra: str = '#2C2F2B'          # barra lateral
+    panel: str = '#2C2F2B'          # tarjetas
+    panel_claro: str = '#424542'    # insignias de iconos, ítem activo/hover, cajas del diagrama
+    cabecera: str = '#393B38'       # cabecera de la tabla
+    borde: str = '#383B38'
+    grafica: str = '#2C2F2B'
+    # texto
+    texto: str = '#FFFFFF'
+    texto_secundario: str = '#A6A9A6'
+    rejilla: str = '#5A5D5A'
+    # series y estados (sobre fondo oscuro)
+    cpu: str = '#FFCA00'            # amarillo (primera serie de la referencia)
+    disipador: str = '#31C75C'      # verde (segunda serie de la referencia)
+    ambiente: str = '#6FA8DC'       # la referencia solo tiene 2 series: este azul suave es el tercero
+    limite: str = '#E07A8E'         # rosa (estado UNPAID de la referencia)
+    ok: str = '#31C75C'
+    aviso: str = '#FFCA00'
+    acento: str = '#31C75C'
+    # tarjeta blanca de resalte (como "Marketing goal" de la referencia)
+    tarjeta_clara: str = '#FFFFFF'
+    texto_oscuro: str = '#161815'
+    texto_oscuro_sec: str = '#5A5D5A'
+    ok_oscuro: str = '#1A7736'
+    aviso_oscuro: str = '#B98400'
+    limite_oscuro: str = '#B83A55'
 
 
 TEMA = Tema()

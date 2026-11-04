@@ -1,4 +1,4 @@
-# IU/app.py
+
 """Ventana principal: conecta controles, modelo, historial y dibujos."""
 from __future__ import annotations
 
@@ -30,7 +30,6 @@ class AplicacionSimulador(tk.Frame):
         self.reiniciar()
         self.after(PERIODO_TICK_MS, self._tick)
 
-    # ---------- construcción ----------
     def _configurar_ventana(self) -> None:
         self.master.title('Termodinámica en la computadora | Feria científica')
         self.master.geometry('1150x880')
@@ -74,7 +73,6 @@ class AplicacionSimulador(tk.Frame):
             self.master.bind(f'<KeyPress-{tecla}>', lambda _e, a=accion: a())
             self.master.bind(f'<KeyPress-{tecla.upper()}>', lambda _e, a=accion: a())
 
-    # ---------- bucle de simulación ----------
     def _tick(self) -> None:
         if self.activo:
             e = self.controles.entradas()
@@ -101,7 +99,6 @@ class AplicacionSimulador(tk.Frame):
             tangentes=self.controles.mostrar_tangentes(),
         )
 
-    # ---------- acciones del usuario ----------
     def pausar(self) -> None:
         self.activo = not self.activo
         self.controles.set_pausado(not self.activo)
