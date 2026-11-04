@@ -11,7 +11,7 @@ from modelo.simulador import Balance
 class Esquema(tk.Canvas):
     ALTO = 140
     ANCHO_MIN = 800
-    Y_SUP, Y_INF = 22, 108        # bordes superior e inferior de las cajas
+    Y_SUP, Y_INF = 22, 108        
     Y_FLECHA = 65
     NOTA = ('El ventilador mueve aire: no produce frío. '
             'El calor fluye espontáneamente hacia zonas de menor temperatura.')
@@ -27,13 +27,12 @@ class Esquema(tk.Canvas):
         self.bind('<Configure>', self._al_redimensionar)
         self._construir()
 
-    # ---------- construcción (solo al crear o redimensionar) ----------
     def _construir(self) -> None:
         self.delete('all')
         self._ids.clear()
         t = self.tema
         w = max(self.winfo_width(), self.ANCHO_MIN)
-        m = min(110, w * 0.12)             # mitad del ancho de cada caja
+        m = min(110, w * 0.12)            
         colores = {'cpu': t.cpu, 'disipador': t.disipador, 'aire': t.ambiente}
         centros = []
 
@@ -65,7 +64,6 @@ class Esquema(tk.Canvas):
         if self._ultimo:
             self.actualizar(*self._ultimo)
 
-    # ---------- actualización (cada tick) ----------
     def actualizar(self, t_cpu: float, t_disipador: float, t_ambiente: float,
                    balance: Balance) -> None:
         self._ultimo = (t_cpu, t_disipador, t_ambiente, balance)

@@ -1,4 +1,4 @@
-# IU/controles.py
+
 """Sliders, botones, velocidad, escenarios y opciones."""
 from __future__ import annotations
 
@@ -13,7 +13,6 @@ from modelo.simulador import Entradas
 class PanelControles(ttk.Frame):
     """Lo único que app.py usa: entradas(), velocidad(), mostrar_tangentes(), set_pausado()."""
 
-    # (etiqueta, atributo, mínimo, máximo, valor inicial)
     SLIDERS = (
         ('Carga del procesador (%)', 'carga', 0, 100, 25),
         ('Ventilador (%)', 'ventilador', 0, 100, 50),
@@ -36,7 +35,6 @@ class PanelControles(ttk.Frame):
         self._crear_botones(on_pausar, on_reiniciar, on_exportar, on_guia)
         self._crear_opciones()
 
-    # ---------- construcción ----------
     def _crear_sliders(self) -> None:
         zona = ttk.Frame(self)
         zona.pack(fill='x')
@@ -85,14 +83,12 @@ class PanelControles(ttk.Frame):
         ttk.Checkbutton(fila, text='Mostrar rectas tangentes (dT/dt)',
                         variable=self._tangentes).pack(side='left', padx=(18, 0))
 
-    # ---------- acciones ----------
     def aplicar_escenario(self, nombre: str) -> None:
         carga, ventilador, ambiente = ESCENARIOS[nombre]
         self._vars['carga'].set(carga)
         self._vars['ventilador'].set(ventilador)
         self._vars['ambiente'].set(ambiente)
 
-    # ---------- interfaz pública ----------
     def entradas(self) -> Entradas:
         """Lee los controles UNA vez y devuelve un objeto del modelo."""
         return Entradas(

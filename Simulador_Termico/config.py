@@ -20,20 +20,19 @@ class Tema:
 
 TEMA = Tema()
 
-# Tiempo
-DT_SIMULACION = 0.05      # paso de integración de Euler [s simulados]
-PERIODO_TICK_MS = 100     # refresco de la interfaz [ms reales]
-PASOS_POR_TICK = 2        # a 1×: 2 · 0.05 s = 0.1 s simulados cada 100 ms → tiempo real
+DT_SIMULACION = 0.05      
+PERIODO_TICK_MS = 100     
+PASOS_POR_TICK = 2        
 VELOCIDADES = ('1', '5', '10')
 
-# Gráfica
-VENTANA_GRAFICA_S = 180   # ancho total del eje X [s]
-MARGEN_FUTURO_S = 20      # espacio a la derecha para ver la recta tangente "hacia el futuro"
 
-# Datos
-MAX_REGISTROS = 100_000   # tope de memoria del historial
+VENTANA_GRAFICA_S = 180   
+MARGEN_FUTURO_S = 20      
 
-# Escenarios rápidos: nombre -> (carga %, ventilador %, ambiente °C)
+
+MAX_REGISTROS = 100_000   
+
+
 ESCENARIOS = {
     'Reposo': (5, 30, 25),
     'Navegación': (30, 40, 28),

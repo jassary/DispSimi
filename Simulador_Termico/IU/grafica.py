@@ -1,4 +1,4 @@
-# IU/grafica.py
+
 """Curvas de temperatura en función del tiempo, con rectas tangentes (dT/dt)."""
 from __future__ import annotations
 
@@ -10,13 +10,11 @@ from datos.historial import Registro
 
 
 class Grafica(tk.Canvas):
-    MARGENES = (55, 20, 32, 38)   # izquierda, derecha, arriba, abajo [px]
-    TANGENTE_ATRAS_S = 15         # cuánto se dibuja la tangente hacia el pasado
-
+    MARGENES = (55, 20, 32, 38)   
+    TANGENTE_ATRAS_S = 15         
     def __init__(self, master, tema: Tema):
         super().__init__(master, bg=tema.grafica, highlightthickness=0)
         self.tema = tema
-        # (campo de temperatura, campo de derivada o None, color)
         self.series = (('cpu_C', 'dtc_dt', tema.cpu),
                        ('disipador_C', 'dtd_dt', tema.disipador),
                        ('ambiente_C', None, tema.ambiente))
@@ -43,8 +41,7 @@ class Grafica(tk.Canvas):
 
         def py(temp: float) -> float:
             return aba - temp / ymax * (aba - arr)
-
-        # Rejilla y ejes
+        
         for i in range(6):
             valor = ymax * i / 5
             self.create_line(izq, py(valor), der, py(valor), fill=t.rejilla)
@@ -64,7 +61,7 @@ class Grafica(tk.Canvas):
             self.create_text(der - 4, py(limite) - 8, anchor='e', fill=t.limite,
                              text=f'Límite de protección {limite:.0f} °C')
 
-        # Curvas
+       
         for campo, _, color in self.series:
             puntos: list[float] = []
             for r in filas:
@@ -72,7 +69,6 @@ class Grafica(tk.Canvas):
             if len(puntos) >= 4:
                 self.create_line(*puntos, fill=color, width=2)
 
-        # Rectas tangentes:  T(t) ≈ T(t0) + (dT/dt)·(t − t0)
         if tangentes:
             for campo, derivada, color in self.series:
                 if derivada is None:

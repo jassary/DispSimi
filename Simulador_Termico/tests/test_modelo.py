@@ -1,4 +1,4 @@
-# tests/test_modelo.py
+
 """Pruebas del modelo físico.
 
 Con pytest:      python -m pytest tests
