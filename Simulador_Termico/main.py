@@ -16,7 +16,5 @@ def main() -> None:
     root = tk.Tk()
     AplicacionSimulador(root).pack(fill='both', expand=True)
     root.mainloop()
-
-
 if __name__ == '__main__':
     main()

@@ -1,3 +1,4 @@
+# IU/app.py
 """Ventana principal: conecta controles, modelo, historial y dibujos."""
 from __future__ import annotations
 
@@ -29,18 +30,38 @@ class AplicacionSimulador(tk.Frame):
         self.reiniciar()
         self.after(PERIODO_TICK_MS, self._tick)
 
+    # ---------- construcción ----------
     def _configurar_ventana(self) -> None:
         self.master.title('Termodinámica en la computadora | Feria científica')
         self.master.geometry('1150x880')
         self.master.minsize(950, 740)
         self.master.configure(bg=TEMA.fondo)
         estilo = ttk.Style(self.master)
+        estilo.theme_use('clam')   # 'clam' permite cambiar colores de botones y listas
         for elemento in ('TFrame', 'TLabel', 'TCheckbutton'):
             estilo.configure(elemento, background=TEMA.fondo, foreground=TEMA.texto)
+        estilo.map('TCheckbutton', background=[('active', TEMA.fondo)],
+                   indicatorbackground=[('!selected', TEMA.boton)])
+        estilo.configure('TCheckbutton', indicatorbackground=TEMA.boton,
+                         indicatorforeground=TEMA.texto)
+        estilo.configure('TButton', background=TEMA.boton, foreground=TEMA.texto,
+                         bordercolor=TEMA.rejilla, focuscolor=TEMA.titulo)
+        estilo.map('TButton', background=[('active', TEMA.panel), ('pressed', TEMA.rejilla)])
+        estilo.configure('TCombobox', fieldbackground=TEMA.boton, background=TEMA.boton,
+                         foreground=TEMA.texto, arrowcolor=TEMA.texto, bordercolor=TEMA.rejilla)
+        estilo.map('TCombobox', fieldbackground=[('readonly', TEMA.boton)],
+                   foreground=[('readonly', TEMA.texto)],
+                   selectbackground=[('readonly', TEMA.boton)],
+                   selectforeground=[('readonly', TEMA.texto)])
+        # Lista desplegable del Combobox (es un widget Tk clásico)
+        self.master.option_add('*TCombobox*Listbox.background', TEMA.boton)
+        self.master.option_add('*TCombobox*Listbox.foreground', TEMA.texto)
+        self.master.option_add('*TCombobox*Listbox.selectBackground', TEMA.titulo)
+        self.master.option_add('*TCombobox*Listbox.selectForeground', TEMA.fondo)
 
     def _construir_ui(self) -> None:
         tk.Label(self, text='TERMODINÁMICA EN LA COMPUTADORA', font=('Arial', 22, 'bold'),
-                 fg=TEMA.ambiente, bg=TEMA.fondo).pack(pady=(10, 0))
+                 fg=TEMA.titulo, bg=TEMA.fondo).pack(pady=(10, 0))
         tk.Label(self, text='Generación y disipación del calor en la placa madre',
                  font=('Arial', 13), fg=TEMA.texto, bg=TEMA.fondo).pack()
         tk.Label(self, text='SIMULACIÓN EDUCATIVA • No utiliza sensores ni controla el equipo real',
@@ -72,6 +93,7 @@ class AplicacionSimulador(tk.Frame):
             self.master.bind(f'<KeyPress-{tecla}>', lambda _e, a=accion: a())
             self.master.bind(f'<KeyPress-{tecla.upper()}>', lambda _e, a=accion: a())
 
+    # ---------- bucle de simulación ----------
     def _tick(self) -> None:
         if self.activo:
             e = self.controles.entradas()
@@ -98,6 +120,7 @@ class AplicacionSimulador(tk.Frame):
             tangentes=self.controles.mostrar_tangentes(),
         )
 
+    # ---------- acciones del usuario ----------
     def pausar(self) -> None:
         self.activo = not self.activo
         self.controles.set_pausado(not self.activo)
