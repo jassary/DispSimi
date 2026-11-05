@@ -10,13 +10,12 @@ No usa sensores ni controla el equipo real.
 python main.py
 ```
 
-En Windows también funciona `py main.py`. En Linux, si falta tkinter, instale `python3-tk`.
 
 ## Pruebas
 
 ```bash
-python tests/test_modelo.py     # sin instalar nada
-python -m pytest tests          # si tiene pytest
+python tests/test_modelo.py     
+python -m pytest tests          
 ```
 
 ## Estructura

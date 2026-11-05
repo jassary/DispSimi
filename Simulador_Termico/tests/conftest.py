@@ -1,4 +1,3 @@
-# Permite que pytest encuentre los paquetes modelo/, datos/, IU/ y config.py
 import os
 import sys
 

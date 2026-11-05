@@ -1,4 +1,3 @@
-# IU/guia.py
 """Texto de apoyo para exponer en la feria."""
 from tkinter import messagebox
 

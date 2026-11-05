@@ -1,4 +1,3 @@
-# datos/historial.py
 """Registro de la simulación y exportación a CSV."""
 from __future__ import annotations
 

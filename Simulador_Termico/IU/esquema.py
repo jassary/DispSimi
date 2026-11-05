@@ -1,4 +1,3 @@
-# IU/esquema.py
 """Diagrama de flujo de calor: CPU → disipador → aire."""
 from __future__ import annotations
 
@@ -11,7 +10,7 @@ from modelo.simulador import Balance
 class Esquema(tk.Canvas):
     ALTO = 140
     ANCHO_MIN = 800
-    Y_SUP, Y_INF = 22, 108        # bordes superior e inferior de las cajas
+    Y_SUP, Y_INF = 22, 108        
     Y_FLECHA = 65
     NOTA = ('El ventilador mueve aire: no produce frío. '
             'El calor fluye espontáneamente hacia zonas de menor temperatura.')
@@ -27,7 +26,6 @@ class Esquema(tk.Canvas):
         self.bind('<Configure>', self._al_redimensionar)
         self._construir()
 
-    # ---------- construcción (solo al crear o redimensionar) ----------
     def _construir(self) -> None:
         self.delete('all')
         self._ids.clear()
@@ -65,7 +63,7 @@ class Esquema(tk.Canvas):
         if self._ultimo:
             self.actualizar(*self._ultimo)
 
-    # ---------- actualización (cada tick) ----------
+   
     def actualizar(self, t_cpu: float, t_disipador: float, t_ambiente: float,
                    balance: Balance) -> None:
         self._ultimo = (t_cpu, t_disipador, t_ambiente, balance)

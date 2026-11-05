@@ -72,8 +72,6 @@ def test_alcanza_equilibrio_teorico():
     assert abs(s.t_cpu - tc_eq) < 0.1
     assert abs(s.t_disipador - td_eq) < 0.1
 
-
-# ---------- matemática (derivadas e integrales) ----------
 def test_derivada_coincide_con_diferencia_central():
     """dT/dt del modelo ≈ [T(t+h) − T(t−h)] / 2h medido sobre la trayectoria."""
     dt = 0.001
@@ -91,8 +89,8 @@ def test_derivada_coincide_con_diferencia_central():
 def test_derivada_inicial_es_potencia_entre_capacidad():
     s = Simulador(t_inicial=28)
     b = s.balance(Entradas(carga=100, ventilador=0, ambiente=28))
-    assert abs(b.dtc_dt - 100 / 12) < 1e-9    # P / Cc
-    assert b.dtd_dt == 0                       # el disipador aún no recibe calor
+    assert abs(b.dtc_dt - 100 / 12) < 1e-9   
+    assert b.dtd_dt == 0                       
 
 
 def test_derivada_nula_en_equilibrio():

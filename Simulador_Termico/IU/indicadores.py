@@ -1,4 +1,3 @@
-# IU/indicadores.py
 """Lecturas numéricas: temperaturas, estado, derivadas, equilibrio y energía."""
 from __future__ import annotations
 
@@ -9,7 +8,7 @@ from modelo.simulador import Balance, Entradas, Simulador
 
 
 class PanelIndicadores(tk.Frame):
-    UMBRAL_EQUILIBRIO = 0.005   # °C/s: por debajo se considera dT/dt ≈ 0
+    UMBRAL_EQUILIBRIO = 0.005   
 
     def __init__(self, master, tema: Tema):
         super().__init__(master, bg=tema.fondo)

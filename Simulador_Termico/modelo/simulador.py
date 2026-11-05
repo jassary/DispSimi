@@ -1,4 +1,3 @@
-# modelo/simulador.py
 """Modelo térmico de dos nodos: CPU y disipador.
 
 Ecuaciones diferenciales (balance de energía, 1.ª ley):
@@ -19,19 +18,19 @@ from .parametros import Parametros
 
 @dataclass(frozen=True)
 class Entradas:
-    carga: float              # %
-    ventilador: float         # %
-    ambiente: float           # °C
-    proteccion: bool = True   # throttling + apagado de emergencia
+    carga: float              
+    ventilador: float         
+    ambiente: float          
+    proteccion: bool = True   
 
 
 @dataclass(frozen=True)
 class Balance:
-    potencia: float     # W generados en la CPU
-    conduccion: float   # W de CPU a disipador
-    salida: float       # W de disipador a aire
-    dtc_dt: float       # derivada de la temperatura de la CPU [°C/s]
-    dtd_dt: float       # derivada de la temperatura del disipador [°C/s]
+    potencia: float     
+    conduccion: float   
+    salida: float       
+    dtc_dt: float       
+    dtd_dt: float      
     throttling: bool
     apagado: bool
 
@@ -44,11 +43,11 @@ class Simulador:
     def reiniciar(self, t_inicial: float) -> None:
         self.t_cpu = self.t_disipador = t_inicial
         self.tiempo = 0.0
-        self.energia_j = 0.0      # E = ∫ P dt  (energía convertida en calor)
+        self.energia_j = 0.0      
         self.throttling = False
-        self.apagado = False      # se mantiene hasta reiniciar, como un equipo real
+        self.apagado = False      
 
-    # ---------- cálculo (sin efectos secundarios) ----------
+    
     def potencia(self, e: Entradas) -> float:
         if self.apagado:
             return 0.0
@@ -77,13 +76,13 @@ class Simulador:
         """τ = Cd / H: tiempo en que el disipador recorre ~63 % del cambio."""
         return self.p.c_disipador / self.p.h(ventilador)
 
-    # ---------- integración ----------
+   
     def avanzar(self, e: Entradas, dt: float = 0.05) -> Balance:
         self._actualizar_proteccion(e.proteccion)
         b = self.balance(e)
-        self.t_cpu += dt * b.dtc_dt          # Euler: T(t+Δt) = T(t) + Δt·dT/dt
+        self.t_cpu += dt * b.dtc_dt          
         self.t_disipador += dt * b.dtd_dt
-        self.energia_j += b.potencia * dt    # suma de Riemann de ∫ P dt
+        self.energia_j += b.potencia * dt    
         self.tiempo += dt
         return b
 
@@ -93,7 +92,7 @@ class Simulador:
             return
         if self.t_cpu >= self.p.t_apagado:
             self.apagado = True
-        # Histéresis: se activa en t_max y se desactiva t_histeresis grados antes
+       
         if self.t_cpu >= self.p.t_max:
             self.throttling = True
         elif self.t_cpu <= self.p.t_max - self.p.t_histeresis:
